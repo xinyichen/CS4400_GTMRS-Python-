@@ -8,6 +8,7 @@ class demo:
 
     def __init__(self, rootWin):
         self.loginPage()
+	self.database=self.connect()
 
     def loginPage(self):
         self.mainWin=win 
@@ -71,10 +72,9 @@ class demo:
         return db
 
     def loginCheck(self):
-        database=self.connect() #calls the connect function 
         self.username=self.E1.get() #gets the username from the entry widget 
         self.password=self.E2.get() #gets the password from the entry widget 
-        cursor=database.cursor() #forms a cursor 
+        cursor=self.database.cursor() #forms a cursor 
         sql="SELECT * FROM PATIENT WHERE Username=%s and Password=%s" #forms the sql query that will check for the username in the existing database
         a=cursor.execute(sql,(self.username,self.password)) #executes the query
         
@@ -84,11 +84,10 @@ class demo:
             message3=messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
 
         cursor.close()
-        database.commit()
+        self.database.commit()
         self.mainWin.withdraw()
 
     def registerNew(self):
-        database=self.connect() #calls the connect function in order to connect to the database
         self.newUsername=self.E11.get()#get the firstname from the entry widget
         self.newPassword=self.E21.get() #gets the username from the entry widget
         self.confirmNewPassword=self.E31.get()#gets the password from the entry widget
@@ -101,7 +100,7 @@ class demo:
             message4=messagebox.showinfo("Registration Unsuccessful","Passwords dont match, please try again") #if the passwords do not match, it shows a messagebox telling the user the same.
         else:
             
-            cursor=database.cursor() #forms a cursor 
+            cursor=self.database.cursor() #forms a cursor 
             sql1="SELECT * FROM PATIENT WHERE Username=%s" #forms a query which checks if the username already exists in the database
             b=cursor.execute(sql1,(self.newUsername)) #executes the query 
             if b >0:
@@ -127,10 +126,9 @@ class demo:
                 
                 
             cursor.close()
-            database.commit()
+            self.database.commit()
 
     def patientLogin(self):
-        database=self.connect()
         self.secondWin.destroy()
         self.patientloginWin=Tk()
         self.patientloginWin.title("GTMRS New Patient Registration") # the title for the GUI
