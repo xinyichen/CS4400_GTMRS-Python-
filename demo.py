@@ -95,7 +95,7 @@ class demo:
         if self.newUsername.strip()=="": 
             message6=messagebox.showinfo("Registration Failed!","Please enter a Username!") #if the username is an empty string, raises an error and asks the user to input a username
         elif self.newPassword.strip()=="":
-            message7=messagebox.showinfo("Registration Falied!","Please enter a Password!") #if the password is an empty string, raises an error and asks the user to input a password
+            message7=messagebox.showinfo("Registration Failed!","Please enter a Password!") #if the password is an empty string, raises an error and asks the user to input a password
 
         elif self.newPassword != self.confirmNewPassword:
             message4=messagebox.showinfo("Registration Unsuccessful","Passwords dont match, please try again") #if the passwords do not match, it shows a messagebox telling the user the same.
@@ -112,17 +112,17 @@ class demo:
                     self.patientLogin()
 ##                    sql="INSERT INTO PATIENT (Username,Password,Name) VALUES (%s,%s,%s)"#if the username is not already taken, it forms a query that inserts the data into the database
 ##                    w=cursor.execute(sql,(newUsername,newPassword,name)) #it executes the query
-##                    message8=messagebox.showinfo("Registration Succcessful!","Registration Successful") #pops a message box telling the user that the registration was successful
+##                    message8=messagebox.showinfo("Registration Successful!","Registration Successful") #pops a message box telling the user that the registration was successful
                 elif usertype == "Doctor":
                     self.doctorLogin()
 ##                    sql="INSERT INTO DOCTOR (Username,Password) VALUES (%s,%s)"#if the username is not already taken, it forms a query that inserts the data into the database
 ##                    x=cursor.execute(sql,(newUsername,newPassword)) #it executes the query
-##                    message8=messagebox.showinfo("Registration Succcessful!","Registration Successful") #pops a message box telling the user that the registration was successful
+##                    message8=messagebox.showinfo("Registration Successful!","Registration Successful") #pops a message box telling the user that the registration was successful
 
                 else:
                     sql="INSERT INTO ADMINISTRATION_PERSONNEL (Username,Password) VALUES (%s,%s)"#if the username is not already taken, it forms a query that inserts the data into the database
                     y=cursor.execute(sql,(self.newUsername,self.newPassword)) #it executes the query
-                    message8=messagebox.showinfo("Registration Succcessful!","Registration Successful") #pops a message box telling the user that the registration was successful
+                    message8=messagebox.showinfo("Registration Successful!","Registration Successful") #pops a message box telling the user that the registration was successful
                     self.adminHomepage()
                 
                 
