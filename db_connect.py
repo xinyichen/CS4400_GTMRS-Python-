@@ -10,7 +10,7 @@ class MySqlConnect:
     
     def connect(self):
         try:
-            db = pymysql.connect(self.host, self.user, self.passwd, self.db) #tries to connect to the database
+            #tries to connect to the database
+            return pymysql.connect(self.host, self.user, self.passwd, self.db)
         except:
-            message = messagebox.showwarning("Unable to connect to the database!","Please check your internet connection!") #if it does not connect to the database, it pops up a showwarning message box that tells the user to check their internet connection.
-        return db
+            raise Exception("Unable to connect to the database")
