@@ -1,13 +1,13 @@
 from tkinter import *
 import urllib.request
 import base64
-from DBConnection import MySqlConnection
+from db_connect import MySqlConnect
 
 class demo:
 
     def __init__(self, rootWin):
         self.loginPage()
-        self.database = MySqlConnection("academic-mysql.cc.gatech.edu", "cs4400_Group_52", "DDoVXAaM", "cs4400_Group_52").connect()
+        self.database = MySqlConnect("academic-mysql.cc.gatech.edu", "cs4400_Group_52", "DDoVXAaM", "cs4400_Group_52").connect()
 
     def loginPage(self):
         self.mainWin=win 
