@@ -1,14 +1,13 @@
 from tkinter import *
-import pymysql
 import urllib.request
 import base64
-
+import MySqlConnection
 
 class demo:
 
     def __init__(self, rootWin):
         self.loginPage()
-	self.database=self.connect()
+        self.database=MySqlConnection.connect()
 
     def loginPage(self):
         self.mainWin=win 
@@ -63,13 +62,6 @@ class demo:
     def cancel(self):
         self.secondWin.destroy() #destroys the second GUI, the registration page
         self.mainWin.deiconify() #it 'shows' the main GUI, the login page
-
-    def connect(self):
-        try:
-            db=pymysql.connect(host="academic-mysql.cc.gatech.edu",user="cs4400_Group_52",passwd="DDoVXAaM",db="cs4400_Group_52") #tries to connect to the database
-        except:
-            message=messagebox.showwarning("Unable to connect to the database!","Please check your internet connection!") #if it does not connect to the database, it pops up a showwarning message box that tells the user to check their internet connection.
-        return db
 
     def loginCheck(self):
         self.username=self.E1.get() #gets the username from the entry widget 
