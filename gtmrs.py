@@ -3,11 +3,11 @@ import urllib.request
 import base64
 from db_connect import MySqlConnect
 
-class demo:
+class gtmrs:
+    database = MySqlConnect("academic-mysql.cc.gatech.edu", "cs4400_Group_52", "DDoVXAaM", "cs4400_Group_52").connect()
 
     def __init__(self, rootWin):
         self.loginPage()
-        self.database = MySqlConnect("academic-mysql.cc.gatech.edu", "cs4400_Group_52", "DDoVXAaM", "cs4400_Group_52").connect()
 
     def loginPage(self):
         self.mainWin=win 
@@ -66,7 +66,7 @@ class demo:
     def loginCheck(self):
         self.username=self.E1.get() #gets the username from the entry widget 
         self.password=self.E2.get() #gets the password from the entry widget 
-        cursor=self.database.cursor() #forms a cursor 
+        cursor=database.cursor() #forms a cursor 
         sql="SELECT * FROM PATIENT WHERE Username=%s and Password=%s" #forms the sql query that will check for the username in the existing database
         a=cursor.execute(sql,(self.username,self.password)) #executes the query
         
@@ -76,7 +76,7 @@ class demo:
             message3=messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
 
         cursor.close()
-        self.database.commit()
+        database.commit()
         self.mainWin.withdraw()
 
     def registerNew(self):
@@ -92,7 +92,7 @@ class demo:
             message4=messagebox.showinfo("Registration Unsuccessful","Passwords dont match, please try again") #if the passwords do not match, it shows a messagebox telling the user the same.
         else:
             
-            cursor=self.database.cursor() #forms a cursor 
+            cursor=database.cursor() #forms a cursor 
             sql1="SELECT * FROM PATIENT WHERE Username=%s" #forms a query which checks if the username already exists in the database
             b=cursor.execute(sql1,(self.newUsername)) #executes the query 
             if b >0:
@@ -118,7 +118,7 @@ class demo:
                 
                 
             cursor.close()
-            self.database.commit()
+            database.commit()
 
     def patientLogin(self):
         self.secondWin.destroy()
@@ -367,5 +367,5 @@ class demo:
         
 
 win=Tk()
-app=demo(win)
+app=gtmrs(win)
 win.mainloop()
