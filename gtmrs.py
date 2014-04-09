@@ -67,8 +67,8 @@ class gtmrs:
         self.username=self.E1.get() #gets the username from the entry widget 
         self.password=self.E2.get() #gets the password from the entry widget 
         cursor=self.database.cursor() #forms a cursor 
-        sql="SELECT * FROM PATIENT WHERE Username=%s and Password=%s" #forms the sql query that will check for the username in the existing database
-        a=cursor.execute(sql,(self.username,self.password)) #executes the query
+        sql="SELECT 'patient' AS Usertype FROM PATIENT WHERE Username=%s and Password=%s UNION SELECT 'doctor' AS Usertype FROM DOCTOR WHERE Username=%s and Password=%s" #forms the sql query that will check for the username in the existing database
+        a=cursor.execute(sql,(self.username,self.password,self.username,self.password)) #executes the query
         
         if a==1:
             message2=messagebox.showinfo("Login Successful","Login Successful") #if the login is successful, it'll return a message saying the same.
