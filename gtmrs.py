@@ -73,8 +73,13 @@ class gtmrs:
         
         if loginSuccess:
             self.currentUser = cursor.fetchone()[0]
-            print(self.currentUser)
             message2=messagebox.showinfo("Login Successful","Login Successful") #if the login is successful, it'll return a message saying the same.
+            if self.currentUser == "patient":
+                self.patientHomepageWin = self.patientHomepage()
+            elif self.currentUser == "doctor":
+                self.doctorHomepageWin = self.doctorHomepage()
+            else:
+                self.adminHomepageWin = self.adminHomepage()
         else:
             message3=messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
 
