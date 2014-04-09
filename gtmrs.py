@@ -66,11 +66,14 @@ class gtmrs:
     def loginCheck(self):
         self.username=self.E1.get() #gets the username from the entry widget 
         self.password=self.E2.get() #gets the password from the entry widget 
-        cursor=self.database.cursor() #forms a cursor 
-        sql="SELECT 'patient' AS Usertype FROM PATIENT WHERE Username=%s and Password=%s UNION SELECT 'doctor' AS Usertype FROM DOCTOR WHERE Username=%s and Password=%s" #forms the sql query that will check for the username in the existing database
-        a=cursor.execute(sql,(self.username,self.password,self.username,self.password)) #executes the query
+        cursor=self.database.cursor() #forms a cursor
+        #forms the sql query that will check for the username in the existing database
+        sql = "SELECT 'patient' AS Usertype FROM PATIENT WHERE Username=%s and Password=%s UNION SELECT 'doctor' AS Usertype FROM DOCTOR WHERE Username=%s and Password=%s UNION SELECT 'admin' AS Usertype FROM ADMINISTRATION_PERSONNEL WHERE Username=%s and Password=%s"
+        loginSuccess = cursor.execute(sql,(self.username, self.password, self.username, self.password, self.username, self.password)) #executes the query
         
-        if a==1:
+        if loginSuccess:
+            self.currentUser = cursor.fetchone()[0]
+            print(self.currentUser)
             message2=messagebox.showinfo("Login Successful","Login Successful") #if the login is successful, it'll return a message saying the same.
         else:
             message3=messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
