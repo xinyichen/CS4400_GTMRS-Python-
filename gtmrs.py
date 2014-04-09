@@ -10,7 +10,7 @@ class gtmrs:
         self.database = MySqlConnect("academic-mysql.cc.gatech.edu", "cs4400_Group_52", "DDoVXAaM", "cs4400_Group_52").connect()
 
     def loginPage(self):
-        self.mainWin=win 
+        self.mainWin=win
         self.mainWin.title("GTMRS Login") #forms the title of the GUI
         self.photo=PhotoImage(file="buzz.gif") 
         L=Label(self.mainWin,image=self.photo) #creates a label that has an image variable and the following couple of lines form the GUI
@@ -68,7 +68,11 @@ class gtmrs:
         self.password=self.E2.get() #gets the password from the entry widget 
         cursor=self.database.cursor() #forms a cursor
         #forms the sql query that will check for the username in the existing database
-        sql = "SELECT 'patient' AS Usertype FROM PATIENT WHERE Username=%s and Password=%s UNION SELECT 'doctor' AS Usertype FROM DOCTOR WHERE Username=%s and Password=%s UNION SELECT 'admin' AS Usertype FROM ADMINISTRATION_PERSONNEL WHERE Username=%s and Password=%s"
+        sql = "SELECT 'patient' AS Usertype FROM PATIENT WHERE Username=%s and Password=%s " \
+              "UNION " \
+              "SELECT 'doctor' AS Usertype FROM DOCTOR WHERE Username=%s and Password=%s " \
+              "UNION " \
+              "SELECT 'admin' AS Usertype FROM ADMINISTRATION_PERSONNEL WHERE Username=%s and Password=%s"
         loginSuccess = cursor.execute(sql,(self.username, self.password, self.username, self.password, self.username, self.password)) #executes the query
         
         if loginSuccess:
