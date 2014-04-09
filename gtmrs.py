@@ -1,6 +1,5 @@
 from tkinter import *
-import urllib.request
-import base64
+from tkinter import messagebox
 from db_connect import MySqlConnect
 
 class gtmrs:
@@ -77,7 +76,7 @@ class gtmrs:
         
         if loginSuccess:
             self.currentUser = cursor.fetchone()[0]
-            message2=messagebox.showinfo("Login Successful","Login Successful") #if the login is successful, it'll return a message saying the same.
+            messagebox.showinfo("Login Successful","Login Successful") #if the login is successful, it'll return a message saying the same.
             if self.currentUser == "patient":
                 self.patientHomepageWin = self.patientHomepage()
             elif self.currentUser == "doctor":
@@ -85,7 +84,7 @@ class gtmrs:
             else:
                 self.adminHomepageWin = self.adminHomepage()
         else:
-            message3=messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
+            messagebox.showwarning("Login Unsuccessful","Wrong Username/password combination, please try again") #if the login is unsuccessful, it'll return a message saying the user to check his/her username/password combo
 
         cursor.close()
         self.database.commit()
@@ -96,19 +95,19 @@ class gtmrs:
         self.newPassword=self.E21.get() #gets the username from the entry widget
         self.confirmNewPassword=self.E31.get()#gets the password from the entry widget
         if self.newUsername.strip()=="": 
-            message6=messagebox.showinfo("Registration Failed!","Please enter a Username!") #if the username is an empty string, raises an error and asks the user to input a username
+            messagebox.showinfo("Registration Failed!","Please enter a Username!") #if the username is an empty string, raises an error and asks the user to input a username
         elif self.newPassword.strip()=="":
-            message7=messagebox.showinfo("Registration Failed!","Please enter a Password!") #if the password is an empty string, raises an error and asks the user to input a password
+            messagebox.showinfo("Registration Failed!","Please enter a Password!") #if the password is an empty string, raises an error and asks the user to input a password
 
         elif self.newPassword != self.confirmNewPassword:
-            message4=messagebox.showinfo("Registration Unsuccessful","Passwords dont match, please try again") #if the passwords do not match, it shows a messagebox telling the user the same.
+            messagebox.showinfo("Registration Unsuccessful","Passwords dont match, please try again") #if the passwords do not match, it shows a messagebox telling the user the same.
         else:
             
             cursor=self.database.cursor() #forms a cursor 
             sql1="SELECT * FROM PATIENT WHERE Username=%s" #forms a query which checks if the username already exists in the database
             b=cursor.execute(sql1,(self.newUsername)) #executes the query 
             if b >0:
-                message5=messagebox.showinfo("Registration Unsuccessful","Username already taken") #if the username is taken, it shows a messagebox telling the user that the username is already taken 
+                messagebox.showinfo("Registration Unsuccessful","Username already taken") #if the username is taken, it shows a messagebox telling the user that the username is already taken 
             else:
                 usertype=self.w.get()
                 if usertype == "Patient":
@@ -125,7 +124,7 @@ class gtmrs:
                 else:
                     sql="INSERT INTO ADMINISTRATION_PERSONNEL (Username,Password) VALUES (%s,%s)"#if the username is not already taken, it forms a query that inserts the data into the database
                     y=cursor.execute(sql,(self.newUsername,self.newPassword)) #it executes the query
-                    message8=messagebox.showinfo("Registration Successful!","Registration Successful") #pops a message box telling the user that the registration was successful
+                    messagebox.showinfo("Registration Successful!","Registration Successful") #pops a message box telling the user that the registration was successful
                     self.adminHomepage()
                 
                 
@@ -265,12 +264,12 @@ class gtmrs:
         L111.grid(row=9, column = 6, sticky=W)
 
     def patientregis(self):
-        message=messagebox.showinfo(title="Registration Successful", message="Registration Successful!")
+        messagebox.showinfo(title="Registration Successful", message="Registration Successful!")
         self.patientloginWin.withdraw()
         self.patientHomepage()
 
     def doctorregis(self):
-        message=messagebox.showinfo(title="Registration Successful", message="Registration Successful!")
+        messagebox.showinfo(title="Registration Successful", message="Registration Successful!")
         self.doctorloginWin.withdraw()
         self.doctorHomepage()
 
@@ -375,8 +374,6 @@ class gtmrs:
         L4.bind("<1>", lambda event, text=text5: \
                   self.click_Test())
         L4.grid(row=5, column = 1, columnspan =3, sticky=W,padx=10)
- 
-        
 
 win=Tk()
 app=gtmrs(win)
